@@ -1,3 +1,4 @@
+language: generic
 sudo: required
 services:
   - docker
@@ -20,8 +21,3 @@ after_success:
   - docker push mordred2000/multi-nginx
   - docker push mordred2000/multi-server
   - docker push mordred2000/multi-worker
-
-
-
-
-
