@@ -4,21 +4,21 @@ services:
   - docker
 
 before_install:
-  - docker build -t mordred2000/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t mistyfo/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true mordred2000/react-test npm test
+  - docker run -e CI=true mistyfo/react-test npm test
 
 after_success:
   # login to docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # build production build
-  - docker build -t mordred2000/multi-client ./client
-  - docker build -t mordred2000/multi-nginx ./nginx
-  - docker build -t mordred2000/multi-server ./server
-  - docker build -t mordred2000/multi-worker ./worker
+  - docker build -t mistyfo/multi-client ./client
+  - docker build -t mistyfo/multi-nginx ./nginx
+  - docker build -t mistyfo/multi-server ./server
+  - docker build -t mistyfo/multi-worker ./worker
   # Take those images and push them to docker hub
-  - docker push mordred2000/multi-client
-  - docker push mordred2000/multi-nginx
-  - docker push mordred2000/multi-server
-  - docker push mordred2000/multi-worker
+  - docker push mistyfo/multi-client
+  - docker push mistyfo/multi-nginx
+  - docker push mistyfo/multi-server
+  - docker push mistyfo/multi-worker
