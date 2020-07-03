@@ -10,12 +10,13 @@ script:
   - docker run -e CI=true mordred2000/react-test npm test
 
 after_success:
+  # login to docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # build production build
   - docker build -t mordred2000/multi-client ./client
   - docker build -t mordred2000/multi-nginx ./nginx
   - docker build -t mordred2000/multi-server ./server
   - docker build -t mordred2000/multi-worker ./worker
-  # login to docker CLI
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
   - docker push mordred2000/multi-client
   - docker push mordred2000/multi-nginx
